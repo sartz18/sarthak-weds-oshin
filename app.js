@@ -172,6 +172,10 @@ function setupVenue() {
 
 /* ---------- RSVP ---------- */
 function setupRSVP() {
+  if ($("#rsvp-form")) setupRSVPForm();
+  renderHosts();
+}
+function setupRSVPForm() {
   $("#r-count").innerHTML = Array.from({ length: 10 }, (_, i) => `<option>${i + 1}</option>`).join("") + `<option value="0">Sorry, can't make it 😔</option>`;
   $("#r-events").innerHTML = CONFIG.events.map(ev =>
     `<label><input type="checkbox" value="${esc(ev.name)}" checked> ${esc(ev.name)}</label>`).join("");
@@ -189,6 +193,8 @@ function setupRSVP() {
     burst(); toast("Thank you! Opening WhatsApp… 💌");
   });
 
+}
+function renderHosts() {
   $("#hosts").innerHTML = CONFIG.hosts.map(h => `<li><span>${esc(h.name)}${h.phone
     ? `<small class="ph">+${h.phone.slice(0, 2)} ${h.phone.slice(2, 7)} ${h.phone.slice(7)}</small>` : ""}</span>${h.phone
     ? `<span class="acts"><a href="tel:+${h.phone}">📞 Call</a> <a href="https://wa.me/${h.phone}" target="_blank" rel="noopener">💬</a></span>` : ""}</li>`).join("");

@@ -209,3 +209,7 @@ footer .script{font-size:2.6rem}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
 .fab[hidden]{display:none}
 @media(max-width:420px){.countdown{gap:7px}.cd{min-width:70px;padding:10px 4px}.cd b{font-size:1.7rem}.cd span{font-size:.6rem;letter-spacing:.12em}}
+
+/* single RSVP contacts panel, centred */
+.rsvp-grid{grid-template-columns:1fr;max-width:620px;margin:0 auto}
+.hero-date sup{text-transform:lowercase;font-size:.6em;letter-spacing:.05em;vertical-align:super;line-height:0}
