@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sarthak &amp; Oshin | #SOinLove | 1–2 December 2026</title>
+<meta name="description" content="You're invited to the wedding of Sarthak & Oshin, 1–2 December 2026 at Calista Resort, New Delhi. #SOinLove">
+<meta property="og:title" content="Sarthak & Oshin are getting married! #SOinLove">
+<meta property="og:description" content="Haldi & Mehendi and Wedding · 1–2 December 2026 · Calista Resort, New Delhi">
+<meta property="og:image" content="https://sartz18.github.io/sarthak-weds-oshin/haldi-wedding/images/page-1.jpg">
+<meta property="og:url" content="https://sartz18.github.io/sarthak-weds-oshin/haldi-wedding/">
+<link rel="canonical" href="https://sartz18.github.io/sarthak-weds-oshin/haldi-wedding/">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#7a1f2b">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Great+Vibes&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=202611012238">
+</head>
+<body class="locked">
+
+<canvas id="petals"></canvas>
+
+<!-- Opening gate -->
+<div id="gate">
+  <div class="door l"></div><div class="door r"></div>
+  <div class="gate-inner">
+    <div class="ganesh">॥ श्री गणेशाय नमः ॥</div>
+    <div class="mono" role="img" aria-label="SO monogram"></div>
+    <p style="letter-spacing:.3em;font-size:.85rem">YOU ARE INVITED TO</p>
+    <h1>Sarthak &amp; Oshin</h1>
+    <p style="letter-spacing:.3em;font-size:.85rem">WEDDING CELEBRATIONS</p>
+    <p style="letter-spacing:.3em;font-size:.85rem">1<sup class="ord">st</sup> – 2<sup class="ord">nd</sup> DEC 2026</p>
+    <p id="guest-greet" style="font-style:italic;margin-top:6px"></p>
+    <button class="gate-btn" id="open-btn">Open Invitation</button>
+    <p class="gate-hint" aria-hidden="true"><span class="finger">👆</span> Tap to open your invitation</p>
+  </div>
+</div>
+
+<nav id="nav">
+  <a href="#home">Home</a><a href="#invite">Invitation</a><a href="#events">Events</a>
+  <a href="#gallery">Cards</a><a href="#venue">Venue</a><a href="#rsvp">RSVP</a><a href="#share">Share</a>
+</nav>
+
+<!-- Hero -->
+<header id="home">
+  <div class="hero-ganesh reveal"><span class="g">🪔</span>श्री गणेशाय नमः</div>
+  <p class="hero-tag reveal">WEDDING INVITATION</p>
+  <div class="mono-big reveal" role="img" aria-label="SO monogram"></div>
+  <div class="hashtag reveal">#SOinLove</div>
+  <div class="names reveal">Sarthak &amp; Oshin</div>
+  <div class="hero-date reveal">1<sup class="ord">st</sup> – 2<sup class="ord">nd</sup> December 2026</div>
+  <div class="hero-venue reveal">Calista Resort · New Delhi</div>
+  <div class="countdown reveal" id="countdown"></div>
+  <div class="hero-art" role="img" aria-label="Illustration of Sarthak and Oshin"></div>
+  <div class="scroll-hint"></div>
+</header>
+
+<!-- Invitation -->
+<section id="invite">
+  <div class="wrap">
+    <p class="subtitle reveal">With the blessings of the family</p>
+    <h2 class="title reveal">The Invitation</h2>
+    <div class="divider"></div>
+    <div class="blessing reveal">
+      <div class="host">Smt. Leelawati W/o Late Sh. Surender Pal</div>
+      <p class="lead">Solicit your benign presence &amp; blessings<br>on the auspicious occasion of the</p>
+      <div class="occ">Wedding Ceremony</div>
+      <p class="lead" style="margin-top:8px">of their beloved grand son</p>
+      <div class="person"><div class="nm">Sarthak</div><div class="par">(S/o Mrs. Pushpa &amp; Mr. Parveen)</div></div>
+      <div class="with">with</div>
+      <div class="person"><div class="nm">Oshin</div><div class="par">(D/o Mrs. Anupama &amp; Mr. Pawan)</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Events -->
+<section id="events">
+  <div class="wrap">
+    <p class="subtitle reveal">Celebrations</p>
+    <h2 class="title reveal">Wedding Festivities</h2>
+    <div class="divider"></div>
+    <div class="day-tabs reveal">
+      <button class="day-tab active" data-day="all">All Events</button>
+      <button class="day-tab" data-day="1">Tue · 1<sup class="ord">st</sup> Dec</button>
+      <button class="day-tab" data-day="2">Wed · 2<sup class="ord">nd</sup> Dec</button>
+    </div>
+    <div class="events-grid" id="events-grid"></div>
+  </div>
+</section>
+
+<!-- Gallery -->
+<section id="gallery">
+  <div class="wrap">
+    <p class="subtitle reveal">Swipe through</p>
+    <h2 class="title reveal">Our Invitation Cards</h2>
+    <div class="divider"></div>
+    <div class="slider reveal">
+      <button class="arrow prev" aria-label="Previous">‹</button>
+      <div class="track" id="track"></div>
+      <button class="arrow next" aria-label="Next">›</button>
+    </div>
+    <p class="hint">Tap any card to view it full screen</p>
+  </div>
+</section>
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button id="lb-close" aria-label="Close">✕</button>
+  <button id="lb-prev" aria-label="Previous">‹</button>
+  <img id="lb-img" alt="Invitation card">
+  <button id="lb-next" aria-label="Next">›</button>
+  <div id="lb-count"></div>
+</div>
+
+<!-- Venue -->
+<section id="venue">
+  <div class="wrap">
+    <p class="subtitle reveal">Where it all happens</p>
+    <h2 class="title reveal">The Venue</h2>
+    <div class="divider"></div>
+    <div class="venue-grid">
+      <div class="venue-card reveal">
+        <div class="venue-photo" role="img" aria-label="Calista Resort entrance"></div>
+        <div class="venue-info">
+          <h3>CALISTA RESORT</h3>
+          <div class="addr" id="venue-addr"></div>
+          <div class="spots"><span>🌼 Royal Courtyard</span><span>🌿 Lawn</span></div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <a class="btn" id="dir-btn" target="_blank" rel="noopener">📍 Get Directions</a>
+            <button class="btn ghost" id="copy-addr">📋 Copy Address</button>
+          </div>
+        </div>
+      </div>
+      <div class="map reveal"><iframe id="map-frame" loading="lazy" title="Map to Calista Resort" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+    </div>
+  </div>
+</section>
+
+<!-- RSVP -->
+<section id="rsvp">
+  <div class="wrap">
+    <p class="subtitle reveal">Kindly let us know</p>
+    <h2 class="title reveal">RSVP</h2>
+    <div class="divider"></div>
+    <div class="rsvp-grid">
+      <div class="panel reveal">
+        <h3>RSVP Contacts</h3>
+        <p style="margin-bottom:14px">For any queries, travel or stay, please reach out to:</p>
+        <ul class="hosts" id="hosts"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Share -->
+<section id="share">
+  <div class="wrap">
+    <p class="subtitle reveal">Spread the joy</p>
+    <h2 class="title reveal">Share the Invitation</h2>
+    <div class="divider"></div>
+    <div class="share-row reveal">
+      <button class="btn wa" id="share-wa">💬 WhatsApp</button>
+      <button class="btn gold" id="share-native">📤 Share</button>
+      <button class="btn ghost" id="share-copy">🔗 Copy Link</button>
+      <a class="btn ghost" id="download-card" href="images/page-1.jpg" download="Sarthak-Oshin-Invite.jpg">⬇️ Download Card</a>
+    </div>
+    <div class="qr reveal"><img id="qr" alt="QR code for this invitation"><p style="font-size:.85rem;margin-top:6px">Scan to open</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="script">Sarthak &amp; Oshin</div>
+  <p>#SOinLove · 1<sup class="ord">st</sup> – 2<sup class="ord">nd</sup> December 2026 · Calista Resort, New Delhi</p>
+  <p style="margin-top:10px;opacity:.8">Your presence is our greatest blessing 🙏</p>
+</footer>
+
+<audio id="music" loop preload="none" src="music.mp3"></audio>
+<button class="fab" id="music-btn" aria-label="Play music" hidden>🎵</button>
+<button id="scroll-cue" aria-label="Scroll down for more details">Scroll down for details<span class="chev" aria-hidden="true"></span></button>
+<button class="fab" id="top-btn" aria-label="Back to top">↑</button>
+<div id="toast"></div>
+
+<script src="app.js?v=202611012238"></script>
+</body>
+</html>
