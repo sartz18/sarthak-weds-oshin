@@ -30,16 +30,14 @@ const CONFIG = {
       start: "2026-12-01T18:00", end: "2026-12-01T23:30", timeLabel: "6:00 pm onwards",
       dateLabel: "Tuesday, 1st December 2026", place: "Ballroom",
       desc: "An evening of food, music and dance to celebrate the union of families and close friends",
-      dress: "Shimmery Night", dressNote: "Ladies, bring on the sparkle! Gentlemen, suit up or go Indian with a touch of shimmer.", dressWhen: "Evening", dressIcon: "🌙",
-      swatches: ["#d4af37","#c9c9d3","#2b2350","#5b3f8c","#111122"], img: "images/page-4.jpg", style: "night",
+      dress: "Shimmery Night", dressNote: "Ladies, bring on the sparkle! Gentlemen, sparkle up with the ladies. Suit up or go Indian.", img: "images/page-4.jpg", style: "night",
     },
     {
       id: "wedding", day: 2, theme: "Vowed to Forever", name: "Wedding Ceremony",
       start: "2026-12-02T11:30", end: "2026-12-02T23:30", timeLabel: "11:30 am onwards",
       dateLabel: "Wednesday, 2nd December 2026", place: "Lawn",
       desc: "Join us as we take our vows and begin forever",
-      dress: "Pastel Shades", dressNote: "soft hues, elegant vibes.", dressWhen: "Sunset", dressIcon: "🌅",
-      swatches: ["#f6c9d0","#fbe3c8","#cfe6d4","#d9cdef","#cde3f3"], img: "images/page-5.jpg", style: "",
+      dress: "Pastel Shades", dressNote: "soft hues, elegant vibes.", img: "images/page-5.jpg", style: "",
       schedule: [
         { name: "Sehrabandi", time: "2026-12-02T11:30", label: "11:30 am" },
         { name: "Jaimala",    time: "2026-12-02T15:30", label: "3:30 pm" },
@@ -133,19 +131,6 @@ function renderEvents() {
 }
 
 /* ---------- Gallery + lightbox ---------- */
-function renderDressCode() {
-  const grid = $("#dress-grid"); if (!grid) return;
-  grid.innerHTML = CONFIG.events.filter(ev => ev.dress).map(ev => `
-    <article class="dc ${ev.style} reveal">
-      <div class="dc-icon">${ev.dressIcon || "👗"}</div>
-      <div class="dc-day">${ord(esc(ev.dateLabel.replace(/^\w+,\s*/, "")))}${ev.dressWhen ? ` · ${esc(ev.dressWhen)}` : ""}</div>
-      <h3>${esc(ev.name)}</h3>
-      <div class="dc-label">Dress Code</div>
-      <p class="dc-title">${esc(ev.dress)}</p>
-      ${ev.dressNote ? `<p class="dc-note">${esc(ev.dressNote)}</p>` : ""}
-      ${ev.swatches ? `<div class="dc-swatches">${ev.swatches.map(c => `<span style="background:${c}"></span>`).join("")}</div>` : ""}
-    </article>`).join("");
-}
 
 function renderGallery() {
   const track = $("#track");
@@ -356,6 +341,6 @@ function setupGate(playMusic, showCue) {
 
 /* ---------- Boot ---------- */
 document.addEventListener("DOMContentLoaded", () => {
-  startCountdown(); renderEvents(); renderDressCode(); renderGallery(); setupVenue(); setupRSVP(); setupShare(); setupScroll();
+  startCountdown(); renderEvents(); renderGallery(); setupVenue(); setupRSVP(); setupShare(); setupScroll();
   setupGate(setupMusic(), setupScrollCue()); setupFabDodge(); setupDownloadCard(); Petals.start();
 });
