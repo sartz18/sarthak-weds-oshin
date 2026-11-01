@@ -270,3 +270,11 @@ nav a{min-height:44px;display:inline-flex;align-items:center;padding:6px 14px}
 /* Dates: show "1" as a real one (not like "I") and small, raised st/nd */
 body,button,input,select,textarea{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
 sup.ord{font-size:.58em;line-height:0;vertical-align:super;text-transform:lowercase;letter-spacing:.02em;margin-left:.04em;font-weight:inherit}
+
+/* Illustrations: never crop the characters — show full width + full figure height at any screen size */
+.ev-art{height:auto;background-size:100% auto!important;background-position:center bottom!important;aspect-ratio:760/450}
+.ev-art[style*="page-3"]{aspect-ratio:760/410}   /* Haldi couple */
+.ev-art[style*="page-4"]{aspect-ratio:760/560}   /* Ring ceremony couple */
+.ev-art[style*="page-5"]{aspect-ratio:760/450}   /* Wedding couple */
+.venue-photo{height:auto;aspect-ratio:760/690;background-size:100% auto!important;background-position:center 76%!important}
+.hero-art{aspect-ratio:760/640;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 18%);mask-image:linear-gradient(to bottom,transparent 0%,#000 18%)}
