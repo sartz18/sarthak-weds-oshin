@@ -200,7 +200,7 @@ function copy(text, msg) {
     .then(() => toast(msg)).catch(() => prompt("Copy this:", text));
 }
 function setupShare() {
-  const url = location.href.split("#")[0].split("?")[0];
+  const url = "https://sartz18.github.io/sarthak-weds-oshin/";
   const text = `💍 You're invited! ${CONFIG.couple} are getting married on 1–2 December 2026 at ${CONFIG.venue.name}, New Delhi. ${CONFIG.hashtag}\n`;
   $("#share-wa").onclick = () => window.open(`https://wa.me/?text=${encodeURIComponent(text + url)}`, "_blank");
   $("#share-copy").onclick = () => copy(url, "Link copied 🔗");
