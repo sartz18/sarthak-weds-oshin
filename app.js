@@ -324,18 +324,28 @@ function setupScroll() {
   $("#top-btn").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
 }
 
+/* ---------- "Scroll down for details" cue (shown after opening, hides once guest scrolls) ---------- */
+function setupScrollCue() {
+  const cue = $("#scroll-cue"); if (!cue) return;
+  let done = false;
+  const hide = () => { done = true; cue.classList.remove("show"); };
+  cue.onclick = () => { hide(); $("#invite").scrollIntoView({ behavior: "smooth" }); };
+  addEventListener("scroll", () => { if (!done && scrollY > 120) hide(); }, { passive: true });
+  return () => setTimeout(() => { if (!done && scrollY < 120) cue.classList.add("show"); }, 1800);
+}
+
 /* ---------- Opening gate ---------- */
-function setupGate(playMusic) {
+function setupGate(playMusic, showCue) {
   const guest = new URLSearchParams(location.search).get("to");
   if (guest) $("#guest-greet").textContent = `Dear ${guest}`;
   $("#open-btn").onclick = () => {
     $("#gate").classList.add("open"); document.body.classList.remove("locked");
-    playMusic(); setTimeout(burst, 600);
+    playMusic(); setTimeout(burst, 600); if (showCue) showCue();
   };
 }
 
 /* ---------- Boot ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   startCountdown(); renderEvents(); renderGallery(); setupVenue(); setupRSVP(); setupShare(); setupScroll();
-  setupGate(setupMusic()); setupFabDodge(); setupDownloadCard(); Petals.start();
+  setupGate(setupMusic(), setupScrollCue()); setupFabDodge(); setupDownloadCard(); Petals.start();
 });
