@@ -278,3 +278,24 @@ sup.ord{font-size:.58em;line-height:0;vertical-align:super;text-transform:lowerc
 .ev-art[style*="page-5"]{aspect-ratio:760/450}   /* Wedding couple */
 .venue-photo{height:auto;aspect-ratio:760/690;background-size:100% auto!important;background-position:center 76%!important}
 .hero-art{aspect-ratio:760/640;-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 18%);mask-image:linear-gradient(to bottom,transparent 0%,#000 18%)}
+
+/* ---- Dress code ---- */
+#dresscode{background:linear-gradient(180deg,var(--cream),#fdf3e4)}
+.dress-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;max-width:1000px;margin:0 auto}
+.dc{background:var(--ivory);border:1px solid rgba(184,137,47,.35);border-radius:22px;padding:26px 22px 24px;text-align:center;box-shadow:0 14px 40px rgba(74,52,35,.1)}
+.dc-icon{font-size:2.2rem;line-height:1}
+.dc-day{margin-top:8px;font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.dc h3{font-size:1.3rem;color:var(--maroon);margin:4px 0 10px}
+.dc-label{display:inline-block;padding:3px 14px;border-radius:14px;background:rgba(242,197,49,.28);font-size:.85rem;font-weight:700;letter-spacing:.08em;color:var(--ink)}
+.dc-title{font-family:var(--script);font-size:2.2rem;line-height:1.15;color:var(--rose);margin:8px 0 2px}
+.dc-note{font-style:italic;margin:0 0 4px}
+.dc-swatches{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.dc-swatches span{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.dc.night{background:var(--night);color:#e9e2f5;border-color:rgba(227,196,122,.45)}
+.dc.night h3,.dc.night .dc-title{color:#e3c47a}
+.dc.night .dc-day{color:#f1d7ff}
+.dc.night .dc-label{background:rgba(201,201,211,.25);color:#e9e2f5}
+.dc.night .dc-swatches span{border-color:rgba(255,255,255,.6)}
+.dc-sign{text-align:center;font-family:var(--script);font-size:1.9rem;color:var(--gold);margin-top:28px}
+.dress-grid:has(> .dc:only-child){max-width:420px}
+.dress-grid:has(> .dc:nth-child(2):last-child){max-width:720px}

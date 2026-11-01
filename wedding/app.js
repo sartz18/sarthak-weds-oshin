@@ -30,7 +30,8 @@ const CONFIG = {
       start: "2026-12-02T11:30", end: "2026-12-02T23:30", timeLabel: "11:30 am onwards",
       dateLabel: "Wednesday, 2nd December 2026", place: "Lawn",
       desc: "Join us as we take our vows and begin forever",
-      dress: "Traditional Indian", img: "images/page-5.jpg", style: "",
+      dress: "Pastel Shades", dressNote: "soft hues, elegant vibes.", dressWhen: "Sunset", dressIcon: "🌅",
+      swatches: ["#f6c9d0","#fbe3c8","#cfe6d4","#d9cdef","#cde3f3"], img: "images/page-5.jpg", style: "",
       schedule: [
         { name: "Sehrabandi", time: "2026-12-02T11:30", label: "11:30 am" },
         { name: "Jaimala",    time: "2026-12-02T15:30", label: "3:30 pm" },
@@ -102,7 +103,7 @@ function renderEvents() {
         ${sched}
         <p class="desc">${esc(ev.desc)}</p>
         <p class="where">📍 <b>${esc(ev.place)}</b>, ${esc(CONFIG.venue.name)}</p>
-        ${ev.dress ? `<p class="where">👗 Suggested attire: ${esc(ev.dress)}</p>` : ""}
+        ${ev.dress ? `<p class="where">👗 Dress code: <b>${esc(ev.dress)}</b>${ev.dressNote ? ` — ${esc(ev.dressNote)}` : ""}</p>` : ""}
         <div class="ev-actions">
           <a class="btn ghost" href="${mapsLink}" target="_blank" rel="noopener">📍 Map</a>
         </div>
@@ -124,6 +125,20 @@ function renderEvents() {
 }
 
 /* ---------- Gallery + lightbox ---------- */
+function renderDressCode() {
+  const grid = $("#dress-grid"); if (!grid) return;
+  grid.innerHTML = CONFIG.events.filter(ev => ev.dress).map(ev => `
+    <article class="dc ${ev.style} reveal">
+      <div class="dc-icon">${ev.dressIcon || "👗"}</div>
+      <div class="dc-day">${ord(esc(ev.dateLabel.replace(/^\w+,\s*/, "")))}${ev.dressWhen ? ` · ${esc(ev.dressWhen)}` : ""}</div>
+      <h3>${esc(ev.name)}</h3>
+      <div class="dc-label">Dress Code</div>
+      <p class="dc-title">${esc(ev.dress)}</p>
+      ${ev.dressNote ? `<p class="dc-note">${esc(ev.dressNote)}</p>` : ""}
+      ${ev.swatches ? `<div class="dc-swatches">${ev.swatches.map(c => `<span style="background:${c}"></span>`).join("")}</div>` : ""}
+    </article>`).join("");
+}
+
 function renderGallery() {
   const track = $("#track");
   track.innerHTML = CONFIG.cards.map((src, i) =>
@@ -333,6 +348,6 @@ function setupGate(playMusic, showCue) {
 
 /* ---------- Boot ---------- */
 document.addEventListener("DOMContentLoaded", () => {
-  startCountdown(); renderEvents(); renderGallery(); setupVenue(); setupRSVP(); setupShare(); setupScroll();
+  startCountdown(); renderEvents(); renderDressCode(); renderGallery(); setupVenue(); setupRSVP(); setupShare(); setupScroll();
   setupGate(setupMusic(), setupScrollCue()); setupFabDodge(); setupDownloadCard(); Petals.start();
 });
