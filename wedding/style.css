@@ -69,7 +69,7 @@ nav a:hover,nav a.active{background:var(--maroon);color:#fff}
 .hero-venue{font-size:1rem;color:var(--ink)}
 .countdown{display:flex;gap:12px;justify-content:center;margin:26px 0;flex-wrap:wrap}
 .cd{min-width:78px;padding:12px 8px;border-radius:14px;background:var(--ivory);border:1px solid rgba(184,137,47,.35);box-shadow:0 6px 20px rgba(122,31,43,.08)}
-.cd b{display:block;font-size:2rem;color:var(--maroon);line-height:1.1;font-variant-numeric:tabular-nums}
+.cd b{display:block;font-size:2rem;color:var(--maroon);line-height:1.1;font-variant-numeric:lining-nums tabular-nums}
 .cd span{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
 .cd-msg{font-family:var(--script);font-size:2.2rem;color:var(--maroon)}
 .hero-art{width:min(520px,100%);margin-top:auto;aspect-ratio:760/640;background:url(images/page-1.jpg) center bottom/cover no-repeat;
@@ -266,3 +266,7 @@ nav a{min-height:44px;display:inline-flex;align-items:center;padding:6px 14px}
 
 /* Wedding-only page: single event card, centred */
 .events-grid{max-width:560px;margin:0 auto}
+
+/* Dates: show "1" as a real one (not like "I") and small, raised st/nd */
+body,button,input,select,textarea{font-variant-numeric:lining-nums;font-feature-settings:"lnum" 1}
+sup.ord{font-size:.58em;line-height:0;vertical-align:super;text-transform:lowercase;letter-spacing:.02em;margin-left:.04em;font-weight:inherit}

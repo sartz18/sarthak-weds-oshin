@@ -46,6 +46,7 @@ const CONFIG = {
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const IST = t => new Date(t + ":00+05:30");
+const ord = s => String(s).replace(/(\d)(st|nd|rd|th)\b/g, '$1<sup class="ord">$2</sup>');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 const mapsQuery = encodeURIComponent(`${CONFIG.venue.name}, ${CONFIG.venue.address}`);
 const mapsLink = `https://www.google.com/maps/search/?api=1&query=${mapsQuery}`;
@@ -97,7 +98,7 @@ function renderEvents() {
       <div class="ev-body">
         <div class="ev-theme">${esc(ev.theme)}</div>
         <h3>${esc(ev.name)}</h3>
-        <p class="when">📅 ${esc(ev.dateLabel)}</p>
+        <p class="when">📅 ${ord(esc(ev.dateLabel))}</p>
         ${sched}
         <p class="desc">${esc(ev.desc)}</p>
         <p class="where">📍 <b>${esc(ev.place)}</b>, ${esc(CONFIG.venue.name)}</p>
@@ -193,7 +194,7 @@ function copy(text, msg) {
 }
 function setupShare() {
   const url = "https://sartz18.github.io/sarthak-weds-oshin/wedding/";
-  const text = `💍 You're invited! ${CONFIG.couple} are getting married on 2nd December 2026 at ${CONFIG.venue.name}, New Delhi. ${CONFIG.hashtag}\n`;
+  const text = `💍 You're invited! ${CONFIG.couple} are getting married on 2ⁿᵈ December 2026 at ${CONFIG.venue.name}, New Delhi. ${CONFIG.hashtag}\n`;
   $("#share-wa").onclick = () => window.open(`https://wa.me/?text=${encodeURIComponent(text + url)}`, "_blank");
   $("#share-copy").onclick = () => copy(url, "Link copied 🔗");
   $("#share-native").onclick = () => navigator.share
