@@ -197,7 +197,7 @@ function setupRSVPForm() {
 function renderHosts() {
   $("#hosts").innerHTML = CONFIG.hosts.map(h => `<li><span>${esc(h.name)}${h.phone
     ? `<small class="ph">+${h.phone.slice(0, 2)} ${h.phone.slice(2, 7)} ${h.phone.slice(7)}</small>` : ""}</span>${h.phone
-    ? `<span class="acts"><a href="tel:+${h.phone}">📞 Call</a> <a href="https://wa.me/${h.phone}" target="_blank" rel="noopener">💬</a></span>` : ""}</li>`).join("");
+    ? `<span class="acts"><a href="tel:+${h.phone}" aria-label="Call ${esc(h.name)}">📞<span class="lbl">&nbsp;Call</span></a> <a href="https://wa.me/${h.phone}" target="_blank" rel="noopener" aria-label="WhatsApp ${esc(h.name)}">💬</a></span>` : ""}</li>`).join("");
 }
 
 /* ---------- Share ---------- */
@@ -253,9 +253,55 @@ const burst = () => Petals.burst();
 /* ---------- Music (only shows if music.mp3 exists) ---------- */
 function setupMusic() {
   const a = $("#music"), b = $("#music-btn");
+  let resumeOnReturn = false;
   fetch("music.mp3", { method: "HEAD" }).then(r => { if (r.ok) b.hidden = false; }).catch(() => {});
-  b.onclick = () => a.paused ? a.play().then(() => b.classList.add("playing")).catch(() => {}) : (a.pause(), b.classList.remove("playing"));
-  return () => { if (!b.hidden) a.play().then(() => b.classList.add("playing")).catch(() => {}); };
+  // keep the spinning button in sync with the real player state
+  a.addEventListener("play", () => b.classList.add("playing"));
+  a.addEventListener("pause", () => b.classList.remove("playing"));
+  b.onclick = () => { resumeOnReturn = false; a.paused ? a.play().catch(() => {}) : a.pause(); };
+  // Auto-pause when the guest switches tab, minimises the browser, opens another app or locks the phone;
+  // resume where it left off when they come back (only if it was playing before).
+  const away = () => { if (!a.paused) { resumeOnReturn = true; a.pause(); } };
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) away();
+    else if (resumeOnReturn) { resumeOnReturn = false; a.play().catch(() => {}); }
+  });
+  addEventListener("pagehide", away);
+  return () => { if (!b.hidden) a.play().catch(() => {}); };
+}
+
+/* ---------- Floating buttons step aside instead of covering links/buttons ---------- */
+function setupFabDodge() {
+  const fabs = $$(".fab"); let queued = false;
+  const check = () => {
+    queued = false;
+    const targets = $$("a,button,input,select,textarea,iframe").filter(el => !el.classList.contains("fab") && !el.closest("nav,#gate,#lightbox"));
+    fabs.forEach(f => {
+      const r = f.getBoundingClientRect(); if (!r.width) return;
+      const hit = targets.some(t => { const q = t.getBoundingClientRect();
+        return q.width && q.bottom > r.top - 6 && q.top < r.bottom + 6 && q.right > r.left - 6 && q.left < r.right + 6; });
+      f.classList.toggle("dodge", hit);
+    });
+  };
+  const queue = () => { if (!queued) { queued = true; setTimeout(check, 60); } };
+  addEventListener("scroll", queue, { passive: true }); addEventListener("resize", queue); queue();
+}
+
+/* ---------- iPhone/iPad: "Download Card" opens the share sheet (has "Save Image") ---------- */
+function setupDownloadCard() {
+  const link = $("#download-card"); if (!link) return;
+  const iOS = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (!iOS || !navigator.canShare) return;
+  let file = null; // pre-load so the share sheet opens instantly on tap (iOS requires that)
+  fetch(link.getAttribute("href")).then(r => r.blob()).then(b => {
+    const f = new File([b], link.getAttribute("download") || "invite.jpg", { type: b.type || "image/jpeg" });
+    if (navigator.canShare({ files: [f] })) file = f;
+  }).catch(() => {});
+  link.addEventListener("click", e => {
+    if (!file) return; // fall back to normal behaviour
+    e.preventDefault();
+    navigator.share({ files: [file] }).catch(() => {});
+  });
 }
 
 /* ---------- Scroll effects ---------- */
@@ -263,13 +309,18 @@ function setupScroll() {
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: .12 });
   $$(".reveal").forEach(el => io.observe(el));
   const links = $$("nav a"), secs = links.map(a => $(a.getAttribute("href")));
+  let lastActive = -1;
   addEventListener("scroll", () => {
     const y = scrollY;
     $("#nav").classList.toggle("show", y > 200);
     $("#top-btn").classList.toggle("show", y > 600);
     let i = secs.findLastIndex ? secs.findLastIndex(s => s && s.offsetTop - 120 <= y) : 0;
     links.forEach((l, j) => l.classList.toggle("active", j === i));
+    if (i !== lastActive && links[i]) { lastActive = i; const nav = $("#nav"), l = links[i];
+      if (nav.scrollWidth > nav.clientWidth) nav.scrollTo({ left: l.offsetLeft - (nav.clientWidth - l.offsetWidth) / 2, behavior: "smooth" }); }
   }, { passive: true });
+  const nav = $("#nav"), edge = () => nav.classList.toggle("at-end", nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 4);
+  nav.addEventListener("scroll", edge, { passive: true }); addEventListener("resize", edge); edge();
   $("#top-btn").onclick = () => scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -286,5 +337,5 @@ function setupGate(playMusic) {
 /* ---------- Boot ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   startCountdown(); renderEvents(); renderGallery(); setupVenue(); setupRSVP(); setupShare(); setupScroll();
-  setupGate(setupMusic()); Petals.start();
+  setupGate(setupMusic()); setupFabDodge(); setupDownloadCard(); Petals.start();
 });
